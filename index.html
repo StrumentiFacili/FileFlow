@@ -4,15 +4,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<!-- 🔍 SEO -->
-<title>Converti immagini WEBP JPG PNG online gratis | FileFlow</title>
+<title>FileFlow - Strumenti immagini nel browser (JPEG, resize, PDF)</title>
 
-<meta name="description" content="Strumenti gratuiti per convertire, comprimere, ridimensionare immagini e creare PDF direttamente nel browser senza upload.">
-<meta name="keywords" content="webp to jpg, convertitore immagini online, compressione immagini, ridimensiona foto, jpg png webp converter">
+<meta name="description" content="Strumenti per elaborare immagini direttamente nel browser: converti in JPEG, ridimensiona e crea PDF. Nessun upload su server.">
+<meta name="keywords" content="image tool browser, resize image online, convert image jpeg browser, image to pdf tool">
 <meta name="author" content="FileFlow">
 
-<!-- ✅ GOOGLE SEARCH CONSOLE VERIFICATION -->
-<meta name="google-site-verification" content="googledd3db91a1d174fbb" />
+<!-- ✅ GOOGLE SEARCH CONSOLE VERIFICATION (CORRETTO) -->
+<meta name="google-site-verification" content="J63hP1RldJxA-fm_tIF_CgK2IUrsyVqRzojdI864XHU" />
 
 <style>
 :root{
@@ -31,7 +30,6 @@ body{
   color:var(--text);
 }
 
-/* HEADER SEO FRIENDLY */
 header{
   text-align:center;
   padding:25px;
@@ -40,7 +38,6 @@ header{
 h1{margin:0;font-size:40px;}
 p{color:var(--muted);}
 
-/* HERO */
 .hero{
   max-width:850px;
   margin:20px auto;
@@ -70,7 +67,6 @@ p{color:var(--muted);}
   border-radius:10px;
 }
 
-/* GRID */
 .grid{
   max-width:900px;
   margin:40px auto;
@@ -105,7 +101,7 @@ input{display:none;}
 
 <header>
 <h1>FileFlow</h1>
-<p>Converti, comprimi e ridimensiona immagini direttamente nel browser</p>
+<p>Strumenti per elaborare immagini direttamente nel browser (nessun upload su server)</p>
 </header>
 
 <div class="hero">
@@ -146,17 +142,9 @@ input{display:none;}
 
 </div>
 
-<!-- JSON-LD SEO -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "FileFlow",
-  "applicationCategory": "ImageEditor",
-  "operatingSystem": "Web",
-  "description": "Strumento online per elaborare immagini direttamente nel browser senza upload su server."
-}
-</script>
+<p style="font-size:12px;color:#9fb0d0;text-align:center;margin-bottom:20px;">
+Tutte le elaborazioni avvengono localmente nel browser. Nessun file viene caricato su server.
+</p>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -170,7 +158,7 @@ let file = null;
 
 function setFile(f){
   if(!f || !f.type.startsWith("image/")){
-    alert("Carica solo immagini");
+    alert("Carica solo immagini valide");
     return;
   }
 
@@ -215,8 +203,7 @@ function loadImage(callback){
   const img = new Image();
 
   img.onload = ()=>callback(img,url);
-
-  img.onerror = ()=>alert("Errore immagine");
+  img.onerror = ()=>alert("Errore caricamento immagine");
 
   img.src = url;
 }
