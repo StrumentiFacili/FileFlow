@@ -4,13 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>StrumentiFacili - Strumenti immagini nel browser (JPEG, resize, PDF)</title>
+<title>Strumenti Facili - Converti e modifica immagini nel browser</title>
 
-<meta name="description" content="Strumenti per elaborare immagini direttamente nel browser: converti in JPEG, ridimensiona e crea PDF. Nessun upload su server.">
-<meta name="keywords" content="image tool browser, resize image online, convert image jpeg browser, image to pdf tool">
-<meta name="author" content="StrumentiFacili">
+<meta name="description" content="Strumenti per convertire, comprimere e ridimensionare immagini direttamente nel browser. Tutto avviene in locale senza upload su server.">
+<meta name="author" content="Strumenti Facili">
 
-<!-- ✅ GOOGLE SEARCH CONSOLE VERIFICATION (CORRETTO) -->
 <meta name="google-site-verification" content="J63hP1RldJxA-fm_tIF_CgK2IUrsyVqRzojdI864XHU" />
 
 <style>
@@ -36,40 +34,11 @@ header{
 }
 
 h1{margin:0;font-size:40px;}
-p{color:var(--muted);}
-
-.hero{
-  max-width:850px;
-  margin:20px auto;
-  padding:25px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;
-  text-align:center;
-}
-
-.dropzone{
-  padding:45px;
-  border:2px dashed var(--accent);
-  border-radius:15px;
-  cursor:pointer;
-  color:var(--muted);
-}
-
-.dropzone.drag{
-  background:rgba(79,140,255,0.1);
-}
-
-.preview{
-  margin-top:15px;
-  max-width:180px;
-  display:none;
-  border-radius:10px;
-}
+p{color:var(--muted);max-width:700px;margin:0 auto;}
 
 .grid{
   max-width:900px;
-  margin:40px auto;
+  margin:20px auto;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:15px;
@@ -84,201 +53,193 @@ p{color:var(--muted);}
   transition:0.2s;
 }
 
-.card:hover{
-  transform:scale(1.03);
+.card:hover{transform:scale(1.03);}
+
+.section{
+  display:none;
+  max-width:900px;
+  margin:20px auto;
+  padding:20px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
 }
 
-.small{
-  font-size:12px;
+.dropzone{
+  padding:40px;
+  border:2px dashed var(--accent);
+  border-radius:15px;
+  text-align:center;
+  cursor:pointer;
   color:var(--muted);
 }
 
+.preview{
+  max-width:180px;
+  margin-top:10px;
+  display:none;
+  border-radius:10px;
+}
+
+button{
+  background:var(--accent);
+  border:none;
+  padding:10px 15px;
+  border-radius:10px;
+  color:white;
+  cursor:pointer;
+  margin-top:10px;
+}
+
 input{display:none;}
+
+.small{font-size:12px;color:var(--muted);}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>StrumentiFacili</h1>
-<p>Strumenti per elaborare immagini direttamente nel browser (nessun upload su server)</p>
+<h1>Strumenti Facili</h1>
+<p>Strumenti per modificare immagini direttamente nel browser. I file non vengono caricati su server.</p>
 </header>
 
-<div class="hero">
+<!-- HOME -->
+<div id="home" class="grid">
 
-<h2>Strumenti immagini online gratuiti</h2>
-
-<div class="dropzone" id="dropzone">
-📁 Trascina o clicca per caricare (JPG, PNG, WEBP)
+<div class="card" onclick="openTool('pdf')">
+<h3>Immagine → PDF</h3>
+<div class="small">Crea un PDF da una singola immagine</div>
 </div>
 
-<img id="preview" class="preview"/>
-
-<input type="file" id="fileInput" accept="image/*"/>
-
+<div class="card" onclick="openTool('resize')">
+<h3>Ridimensiona immagine</h3>
+<div class="small">Riduce la dimensione del file al 50%</div>
 </div>
 
-<div class="grid">
-
-<div class="card" onclick="toPDF()">
-<h3>🖼 Esporta in PDF</h3>
-<div class="small">Converti una singola immagine in PDF</div>
+<div class="card" onclick="openTool('compress')">
+<h3>Comprimi immagine</h3>
+<div class="small">Riduce la qualità del file JPG</div>
 </div>
 
-<div class="card" onclick="resize()">
-<h3>📐 Ridimensiona immagine</h3>
-<div class="small">Riduce la dimensione del 50%</div>
-</div>
-
-<div class="card" onclick="compress()">
-<h3>⚡ Comprimi immagine</h3>
-<div class="small">Riduce il peso del file JPG</div>
-</div>
-
-<div class="card" onclick="toJPG()">
-<h3>🔄 Converti in JPG</h3>
-<div class="small">PNG e WEBP → JPG</div>
+<div class="card" onclick="openTool('jpg')">
+<h3>Converti in JPG</h3>
+<div class="small">Converte PNG o WEBP in JPG</div>
 </div>
 
 </div>
 
-<p style="font-size:12px;color:#9fb0d0;text-align:center;margin-bottom:20px;">
-Tutte le elaborazioni avvengono localmente nel browser. Nessun file viene caricato su server.
-</p>
+<!-- TOOL -->
+<div id="pdf" class="section">
+<h2>Immagine → PDF</h2>
+<div class="dropzone" onclick="fileInput.click()">Seleziona immagine</div>
+<img id="preview" class="preview">
+<input type="file" id="fileInput" accept="image/*">
+<button onclick="toPDF()">Crea PDF</button>
+</div>
+
+<div id="resize" class="section">
+<h2>Ridimensiona immagine</h2>
+<div class="dropzone" onclick="fileInput.click()">Seleziona immagine</div>
+<button onclick="doResize()">Riduci del 50%</button>
+</div>
+
+<div id="compress" class="section">
+<h2>Comprimi immagine</h2>
+<div class="dropzone" onclick="fileInput.click()">Seleziona immagine</div>
+<button onclick="doCompress()">Comprimi</button>
+</div>
+
+<div id="jpg" class="section">
+<h2>Converti in JPG</h2>
+<div class="dropzone" onclick="fileInput.click()">Seleziona immagine</div>
+<button onclick="doJPG()">Converti</button>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 
-const input = document.getElementById("fileInput");
-const dropzone = document.getElementById("dropzone");
-const preview = document.getElementById("preview");
+let file=null;
 
-let file = null;
-
-function setFile(f){
-  if(!f || !f.type.startsWith("image/")){
-    alert("Carica solo immagini valide");
-    return;
-  }
-
-  file = f;
-
-  const r = new FileReader();
-  r.onload = e=>{
-    preview.src = e.target.result;
-    preview.style.display = "block";
-  };
-  r.readAsDataURL(f);
-}
-
-dropzone.onclick = ()=>input.click();
-
-dropzone.addEventListener("dragover",e=>{
-  e.preventDefault();
-  dropzone.classList.add("drag");
-});
-
-dropzone.addEventListener("dragleave",()=>{
-  dropzone.classList.remove("drag");
-});
-
-dropzone.addEventListener("drop",e=>{
-  e.preventDefault();
-  dropzone.classList.remove("drag");
-  setFile(e.dataTransfer.files[0]);
-});
+const input=document.getElementById("fileInput");
+const preview=document.getElementById("preview");
 
 input.addEventListener("change",e=>{
-  setFile(e.target.files[0]);
+  file=e.target.files[0];
+
+  const r=new FileReader();
+  r.onload=ev=>{
+    preview.src=ev.target.result;
+    preview.style.display="block";
+  };
+  r.readAsDataURL(file);
 });
 
-function loadImage(callback){
-  if(!file){
-    alert("Carica prima un'immagine");
-    return;
-  }
-
-  const url = URL.createObjectURL(file);
-  const img = new Image();
-
-  img.onload = ()=>callback(img,url);
-  img.onerror = ()=>alert("Errore caricamento immagine");
-
-  img.src = url;
+function openTool(id){
+  document.getElementById("home").style.display="none";
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+  document.getElementById(id).style.display="block";
 }
 
+/* PDF */
 function toPDF(){
-  loadImage((img,url)=>{
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
+  if(!file) return alert("Seleziona un'immagine");
 
-    const w = pdf.internal.pageSize.getWidth();
-    const h = (img.height / img.width) * w;
+  const r=new FileReader();
+  r.onload=e=>{
+    const img=new Image();
 
-    const c = document.createElement("canvas");
-    c.width = img.width;
-    c.height = img.height;
+    img.onload=()=>{
+      const {jsPDF}=window.jspdf;
+      const pdf=new jsPDF();
 
-    c.getContext("2d").drawImage(img,0,0);
+      const w=pdf.internal.pageSize.getWidth();
+      const h=(img.height/img.width)*w;
 
-    const data = c.toDataURL("image/jpeg",1.0);
+      const c=document.createElement("canvas");
+      c.width=img.width;
+      c.height=img.height;
+      c.getContext("2d").drawImage(img,0,0);
 
-    pdf.addImage(data,"JPEG",0,0,w,h);
-    pdf.save("StrumentiFacili.pdf");
+      pdf.addImage(c.toDataURL("image/jpeg"),"JPEG",0,0,w,h);
+      pdf.save("strumenti-facili.pdf");
+    };
 
-    URL.revokeObjectURL(url);
-  });
+    img.src=e.target.result;
+  };
+
+  r.readAsDataURL(file);
 }
 
-function resize(){
-  loadImage((img,url)=>{
-    const c = document.createElement("canvas");
-    c.width = img.width/2;
-    c.height = img.height/2;
+/* UTIL */
+function process(scale,quality,name){
+  if(!file) return alert("Seleziona un'immagine");
+
+  const url=URL.createObjectURL(file);
+  const img=new Image();
+
+  img.onload=()=>{
+    const c=document.createElement("canvas");
+    c.width=img.width*scale;
+    c.height=img.height*scale;
 
     c.getContext("2d").drawImage(img,0,0,c.width,c.height);
 
-    download(c.toDataURL("image/jpeg"),"resized.jpg");
+    const a=document.createElement("a");
+    a.href=c.toDataURL("image/jpeg",quality);
+    a.download=name;
+    a.click();
 
     URL.revokeObjectURL(url);
-  });
+  };
+
+  img.src=url;
 }
 
-function compress(){
-  loadImage((img,url)=>{
-    const c = document.createElement("canvas");
-    c.width = img.width;
-    c.height = img.height;
-
-    c.getContext("2d").drawImage(img,0,0);
-
-    download(c.toDataURL("image/jpeg",0.6),"compressed.jpg");
-
-    URL.revokeObjectURL(url);
-  });
-}
-
-function toJPG(){
-  loadImage((img,url)=>{
-    const c = document.createElement("canvas");
-    c.width = img.width;
-    c.height = img.height;
-
-    c.getContext("2d").drawImage(img,0,0);
-
-    download(c.toDataURL("image/jpeg"),"converted.jpg");
-
-    URL.revokeObjectURL(url);
-  });
-}
-
-function download(data,name){
-  const a=document.createElement("a");
-  a.href=data;
-  a.download=name;
-  a.click();
-}
+function doResize(){ process(0.5,0.9,"resized.jpg"); }
+function doCompress(){ process(1,0.6,"compressed.jpg"); }
+function doJPG(){ process(1,0.95,"converted.jpg"); }
 
 </script>
 
