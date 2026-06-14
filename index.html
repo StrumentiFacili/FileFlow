@@ -4,11 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>FileFlow - Strumenti immagini nel browser (JPEG, resize, PDF)</title>
+<title>StrumentiFacili - Strumenti immagini nel browser (JPEG, resize, PDF)</title>
 
 <meta name="description" content="Strumenti per elaborare immagini direttamente nel browser: converti in JPEG, ridimensiona e crea PDF. Nessun upload su server.">
 <meta name="keywords" content="image tool browser, resize image online, convert image jpeg browser, image to pdf tool">
-<meta name="author" content="FileFlow">
+<meta name="author" content="StrumentiFacili">
 
 <!-- ✅ GOOGLE SEARCH CONSOLE VERIFICATION (CORRETTO) -->
 <meta name="google-site-verification" content="J63hP1RldJxA-fm_tIF_CgK2IUrsyVqRzojdI864XHU" />
@@ -100,7 +100,7 @@ input{display:none;}
 <body>
 
 <header>
-<h1>FileFlow</h1>
+<h1>StrumentiFacili</h1>
 <p>Strumenti per elaborare immagini direttamente nel browser (nessun upload su server)</p>
 </header>
 
@@ -225,7 +225,7 @@ function toPDF(){
     const data = c.toDataURL("image/jpeg",1.0);
 
     pdf.addImage(data,"JPEG",0,0,w,h);
-    pdf.save("fileflow.pdf");
+    pdf.save("StrumentiFacili.pdf");
 
     URL.revokeObjectURL(url);
   });
